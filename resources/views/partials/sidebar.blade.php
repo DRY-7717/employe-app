@@ -3,8 +3,7 @@
         <div class="sidebar-header position-relative">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="logo">
-                    <a href="index.html"><img src="/assets/compiled/svg/logo.svg" alt="Logo"
-                            srcset=""></a>
+                    <a href="/dashboard" class="fs-5">Employee App</a>
                 </div>
                 <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -56,12 +55,12 @@
                 <li class="sidebar-item  has-sub">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
-                        <span>Components</span>
+                        <span>Karyawan</span>
                     </a>
 
                     <ul class="submenu ">
                         <li class="submenu-item  ">
-                            <a href="component-accordion.html" class="submenu-link">Accordion</a>
+                            <a href="component-accordion.html" class="submenu-link">Data karyawan</a>
 
                         </li>
 
