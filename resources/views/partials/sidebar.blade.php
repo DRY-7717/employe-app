@@ -58,15 +58,25 @@
 
                     <ul class="submenu ">
                         <li class="submenu-item  ">
-                            <a href="/dashboard/profile" class="submenu-link {{ Request::is('dashboard/profile') ? 'text-primary' : false }}">My profile</a>
+                            <a href="/dashboard/profile"
+                                class="submenu-link {{ Request::is('dashboard/profile') ? 'text-primary' : false }}">My
+                                profile</a>
 
                         </li>
                         <li class="submenu-item  ">
-                            <a href="/dashboard/profile/changepassword" class="submenu-link {{ Request::is('dashboard/profile/changepassword') ? 'text-primary' : false }}">Change password</a>
+                            <a href="/dashboard/profile/changepassword"
+                                class="submenu-link {{ Request::is('dashboard/profile/changepassword') ? 'text-primary' : false }}">Change
+                                password</a>
                         </li>
 
                     </ul>
 
+                </li>
+                <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : false }} ">
+                    <a href="/dashboard/users" class='sidebar-link'>
+                        <i class="bi bi-people-fill"></i>
+                        <span>Users</span>
+                    </a>
                 </li>
             </ul>
         </div>
