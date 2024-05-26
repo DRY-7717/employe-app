@@ -36,6 +36,8 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     // profile
     Route::get('profile', [ProfileController::class, 'index']);
     Route::put('profile/{id}', [ProfileController::class, 'update']);
+    Route::get('profile/changepassword', [ProfileController::class, 'updatepassword']);
+    Route::put('profile/changepassword/{id}', [ProfileController::class, 'changepassword']);
 
     // logout
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');

@@ -61,6 +61,9 @@
                             <a href="/dashboard/profile" class="submenu-link {{ Request::is('dashboard/profile') ? 'text-primary' : false }}">My profile</a>
 
                         </li>
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/profile/changepassword" class="submenu-link {{ Request::is('dashboard/profile/changepassword') ? 'text-primary' : false }}">Change password</a>
+                        </li>
 
                     </ul>
 
