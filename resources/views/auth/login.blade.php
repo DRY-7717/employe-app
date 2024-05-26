@@ -9,6 +9,11 @@
                         <h3 class="fw-bold ">Login</h3>
                         <p class="p-0 mt-0 mx-0 mb-2 text-secondary" style="font-size: 16px">Selamat datang di aplikasi
                             Employee App. Silahkan login!</p>
+                        @if (session('message'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ session('message') }}
+                            </div>
+                        @endif
                         <form method="POST" action="{{ route('login') }}">
                             @csrf
                             <div class="row mb-3">

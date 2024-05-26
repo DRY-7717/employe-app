@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,17 +18,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route berfungsi untuk mengakses url yang dapat di akses di internet
+
+// login
 Route::get('/', [LoginController::class, 'showLoginForm'])->middleware('guest')->name('login');
 Route::post('/', [LoginController::class, 'login'])->middleware('guest');
-
+// register
 Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->middleware('guest')->name('register');
 Route::post('/register', [RegisterController::class, 'register'])->middleware('guest')->name('register');
 
 
 
 Route::prefix('/dashboard')->middleware('auth')->group(function () {
+    // dashboard
     Route::get('', [DashboardController::class, 'index']);
-    
+
+    // profile
+    Route::get('profile', [ProfileController::class, 'index']);
+    Route::put('profile/{id}', [ProfileController::class, 'update']);
+
+    // logout
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 });
 

@@ -47,6 +47,7 @@
     <script src="/assets/extensions/apexcharts/apexcharts.min.js"></script>
     <script src="/assets/static/js/pages/dashboard.js"></script>
 
+    @stack('script')
 </body>
 
 </html>
