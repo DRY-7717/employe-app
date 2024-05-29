@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('profiles', function (Blueprint $table) {
-            $table->ulid('id')->primary();
+        Schema::create('position_user', function (Blueprint $table) {
+            $table->id();
             $table->foreignUuid('user_id');
-            $table->string('address');
-            $table->string('no_hp', 12);
-            $table->date('tgl_lahir');
-            $table->string('img_profile')->nullable();
+            $table->foreignId('position_id');
             $table->timestamps();
-
             $table->foreign('user_id')->on('users')->references('id')->onDelete('cascade');
+            $table->foreign('position_id')->on('positions')->references('id')->onDelete('cascade');
         });
     }
 
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('profiles');
+        Schema::dropIfExists('position_user');
     }
 };

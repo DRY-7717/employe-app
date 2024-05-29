@@ -27,6 +27,12 @@
                     Silahkan isi profile anda terlebih dahulu!
                 </div>
             @endif
+            @if (session('message'))
+                <div class="alert alert-light-success color-success">
+                    <i class="bi bi-check-circle"></i>
+                    {{ session('message') }}
+                </div>
+            @endif
             <div class="card">
                 <div class="card-body">
                     <form action="/dashboard/profile/{{ auth()->user()->id }}" method="POST" enctype="multipart/form-data"
@@ -39,11 +45,14 @@
                                     class=" img-preview  img-fluid rounded-circle mb-3  "
                                     style="width: 150px; height: 150px; object-fit: cover; object-position: top;"
                                     alt="">
+
+                                <p class="m-0 p-0 text-light fw-semibold">{{ auth()->user()->positions->first()->name ?? '-' }}</p>
                             @else
                                 <img src="/assets/static/images/faces/2.jpg"
                                     class=" img-preview  img-fluid rounded-circle mb-3 "
                                     style="width: 150px; height: 150px; object-fit: cover; object-position: top;"
                                     alt="">
+                                <p class="m-0 p-0 text-light fw-semibold">{{ auth()->user()->positions->first()->name ?? '-' }}</p>
                             @endif
 
                             <!-- File uploader with image preview -->
@@ -67,14 +76,14 @@
                                     <div class="form-group">
                                         <label for="name">Name</label>
                                         <input type="text" id="name" class="form-control "
-                                            placeholder="Input your name" name="name" value="{{ auth()->user()->name }}">
+                                            placeholder="Input nama anda" name="name" value="{{ auth()->user()->name }}">
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-12">
                                     <div class="form-group">
                                         <label for="email">Email</label>
                                         <input type="email" id="email" class="form-control"
-                                            placeholder="Input your email" name="email"
+                                            placeholder="Input email " name="email"
                                             value="{{ auth()->user()->email }}" disabled>
                                     </div>
                                 </div>
@@ -83,7 +92,7 @@
                                         <label for="no_hp">No. Handphone</label>
                                         <input type="text" id="no_hp"
                                             class="form-control @error('no_hp') is-invalid @enderror"
-                                            placeholder="Input your phone number" name="no_hp"
+                                            placeholder="Input nomor handphone anda" name="no_hp"
                                             value="{{ old('no_hp', auth()->user()->profile->no_hp ?? '') }}">
                                         @error('no_hp')
                                             <div class="invalid-feedback">
@@ -97,7 +106,7 @@
                                         <label for="tgl_lahir">Tanggal Lahir</label>
                                         <input type="date" id="tgl_lahir"
                                             class="form-control @error('tgl_lahir') is-invalid @enderror" name="tgl_lahir"
-                                            placeholder="Input your postal code"
+                                            placeholder="Input tanggal lahir anda"
                                             value="{{ old('tgl_lahir', auth()->user()->profile->tgl_lahir ?? '') }}">
                                         @error('tgl_lahir')
                                             <div class="invalid-feedback">

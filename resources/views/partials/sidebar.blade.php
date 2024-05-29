@@ -72,11 +72,26 @@
                     </ul>
 
                 </li>
-                <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : false }} ">
+                <li class="sidebar-item {{ Request::is('dashboard/users*') ? 'active' : false }} ">
                     <a href="/dashboard/users" class='sidebar-link'>
                         <i class="bi bi-people-fill"></i>
                         <span>Users</span>
                     </a>
+                </li>
+                <li class="sidebar-item  has-sub {{ Request::is('dashboard/position*') ? 'active' : false }}">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-person-up"></i>
+                        <span>Job Position</span>
+                    </a>
+
+                    <ul class="submenu ">
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/position"
+                                class="submenu-link {{ Request::is('dashboard/position*') ? 'text-primary' : false }}">Position</a>
+
+                        </li>
+                    </ul>
+
                 </li>
             </ul>
         </div>

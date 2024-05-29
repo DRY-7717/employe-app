@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ManagementUserController;
+use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +40,12 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::put('profile/{id}', [ProfileController::class, 'update']);
     Route::get('profile/changepassword', [ProfileController::class, 'updatepassword']);
     Route::put('profile/changepassword/{id}', [ProfileController::class, 'changepassword']);
+
+    // Position
+    Route::resource('position', PositionController::class);
+
+    // Management User
+    Route::resource('users', ManagementUserController::class);
 
     // logout
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
