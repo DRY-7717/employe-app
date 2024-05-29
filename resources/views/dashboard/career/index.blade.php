@@ -6,14 +6,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Create User</h3>
-                    <p class="text-subtitle text-muted">Halaman untuk membuat user atau karyawan baru</p>
+                    <h3>Promotion Career</h3>
+                    <p class="text-subtitle text-muted">Halaman untuk promosi karyawan atau kenaikan jabatan karyawan</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">User
+                            <li class="breadcrumb-item active" aria-current="page">Promotion Career
                             </li>
                         </ol>
                     </nav>
@@ -21,19 +21,31 @@
             </div>
         </div>
         <section class="section">
+            @if (session('message'))
+                <div class="alert alert-light-success color-success">
+                    <i class="bi bi-check-circle"></i>
+                    {{ session('message') }}
+                </div>
+            @endif
             <div class="card">
-                <form action="/dashboard/users" method="POST" class="form">
+                <form action="/dashboard/career" method="POST" class="form">
                     @csrf
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 col-12">
                                 <div class="form-group">
-                                    <label for="name">Name</label>
-                                    <input type="text" id="name"
-                                        class="form-control @error('name') is-invalid @enderror"
-                                        placeholder="Input nama karyawan" name="name" value="{{ old('name') }}">
+                                    <label for="user_id">Karyawan</label>
+                                    <select
+                                        class="form-select @error('user_id')
+                                        is-invalid @enderror"
+                                        name="user_id">
+                                        <option selected disabled>Pilih karyawan</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                        @endforeach
+                                    </select>
 
-                                    @error('name')
+                                    @error('user_id')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>
@@ -42,35 +54,7 @@
                             </div>
                             <div class="col-md-12 col-12">
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="email" id="email"
-                                        class="form-control @error('email') is-invalid @enderror"
-                                        placeholder="Input email karyawan" name="email" value="{{ old('email') }}">
-
-                                    @error('email')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-12">
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" id="password"
-                                        class="form-control @error('password') is-invalid @enderror"
-                                        placeholder="Input password karyawan" name="password" value="{{ old('password') }}">
-
-                                    @error('password')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-12">
-                                <div class="form-group">
-                                    <label for="position_id">Posisi</label>
+                                    <label for="posisiton_id">Posisi</label>
                                     <select
                                         class="form-select @error('position_id')
                                         is-invalid @enderror"

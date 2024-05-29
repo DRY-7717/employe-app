@@ -78,7 +78,7 @@
                         <span>Users</span>
                     </a>
                 </li>
-                <li class="sidebar-item  has-sub {{ Request::is('dashboard/position*') ? 'active' : false }}">
+                <li class="sidebar-item  has-sub {{ Request::is('dashboard/position*') ? 'active' : false }} {{ Request::is('dashboard/career*') ? 'active' : false }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-person-up"></i>
                         <span>Job Position</span>
@@ -88,6 +88,11 @@
                         <li class="submenu-item  ">
                             <a href="/dashboard/position"
                                 class="submenu-link {{ Request::is('dashboard/position*') ? 'text-primary' : false }}">Position</a>
+
+                        </li>
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/career"
+                                class="submenu-link {{ Request::is('dashboard/career*') ? 'text-primary' : false }}">Promotion Career</a>
 
                         </li>
                     </ul>

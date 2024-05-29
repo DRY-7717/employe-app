@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CareerPromotionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\PositionController;
@@ -46,6 +47,10 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
 
     // Management User
     Route::resource('users', ManagementUserController::class);
+
+    // Career Advancement 
+    Route::get('career', [CareerPromotionController::class, 'index']);
+    Route::post('career', [CareerPromotionController::class, 'store']);
 
     // logout
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
