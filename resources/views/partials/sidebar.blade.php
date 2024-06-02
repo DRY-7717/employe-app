@@ -78,7 +78,8 @@
                         <span>Users</span>
                     </a>
                 </li>
-                <li class="sidebar-item  has-sub {{ Request::is('dashboard/position*') ? 'active' : false }} {{ Request::is('dashboard/career*') ? 'active' : false }}">
+                <li
+                    class="sidebar-item  has-sub {{ Request::is('dashboard/position*') ? 'active' : false }} {{ Request::is('dashboard/career*') ? 'active' : false }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-person-up"></i>
                         <span>Job Position</span>
@@ -92,9 +93,38 @@
                         </li>
                         <li class="submenu-item  ">
                             <a href="/dashboard/career"
-                                class="submenu-link {{ Request::is('dashboard/career*') ? 'text-primary' : false }}">Promotion Career</a>
+                                class="submenu-link {{ Request::is('dashboard/career*') ? 'text-primary' : false }}">Promotion
+                                Career</a>
 
                         </li>
+                    </ul>
+
+                </li>
+
+                <li
+                    class="sidebar-item  has-sub {{ Request::is('dashboard/attendance*') ? 'active' : false }}">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-person-up"></i>
+                        <span>Attendance</span>
+                    </a>
+
+                    <ul class="submenu ">
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/attendance/schedule"
+                                class="submenu-link {{ Request::is('dashboard/attendance/schedule*') ? 'text-primary' : false }}">Attendace Schedule</a>
+
+                        </li>
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/attendance/users"
+                                class="submenu-link {{ Request::is('dashboard/attendance/users') ? 'text-primary' : false }}">Attendance Users</a>
+
+                        </li>
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/attendance/user/check/list"
+                                class="submenu-link {{ Request::is('dashboard/attendance/user/check/list') ? 'text-primary' : false }}">Attendance</a>
+
+                        </li>
+                       
                     </ul>
 
                 </li>

@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(1)->create();
+        User::factory(5)->create();
 
         $positions = ['Administrator','Human Resource Development','Manager Programmer', 'Senior Programmer', 'Programmer'];
 

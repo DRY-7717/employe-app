@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CareerPromotionController;
@@ -51,6 +52,25 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     // Career Advancement 
     Route::get('career', [CareerPromotionController::class, 'index']);
     Route::post('career', [CareerPromotionController::class, 'store']);
+
+    // Attendance Schedule
+    Route::get('attendance/schedule', [AttendanceController::class, 'indexSchedule']);
+    Route::get('attendance/schedule/create', [AttendanceController::class, 'createSchedule']);
+
+    Route::get('attendance/schedule/{date}/edit', [AttendanceController::class, 'editSchedule']);
+
+    Route::post('attendance/schedule', [AttendanceController::class, 'storeSchedule']);
+    Route::put('attendance/schedule/{date}', [AttendanceController::class, 'updateSchedule']);
+    Route::delete('attendance/schedule/{date}', [AttendanceController::class, 'deleteSchedule']);
+
+    // Users Attendance
+    Route::get('attendance/users', [AttendanceController::class, 'attendanceUser']);
+
+    // check in & check out
+    Route::get('attendance/user/check/list', [AttendanceController::class, 'attendanceUserCheckList']);
+    Route::post('attendance/user/checkin', [AttendanceController::class, 'checkIn']);
+    Route::post('attendance/user/checkout', [AttendanceController::class, 'checkOut']);
+
 
     // logout
     Route::post('logout', [LoginController::class, 'logout'])->name('logout');
