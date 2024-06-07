@@ -43,26 +43,26 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::get('profile/changepassword', [ProfileController::class, 'updatepassword']);
     Route::put('profile/changepassword/{id}', [ProfileController::class, 'changepassword']);
 
-    // Position
-    Route::resource('position', PositionController::class)->middleware('admin');
+    Route::middleware('admin')->group(function () {
+        // Position
+        Route::resource('position', PositionController::class);
+        // Management User
+        Route::resource('users', ManagementUserController::class);
+        // Career Advancement 
+        Route::get('career', [CareerPromotionController::class, 'index']);
+        Route::post('career', [CareerPromotionController::class, 'store']);
+        // attendance schedule
+        Route::get('attendance/schedule', [AttendanceController::class, 'indexSchedule']);
+        Route::get('attendance/schedule/create', [AttendanceController::class, 'createSchedule']);
+        Route::get('attendance/schedule/{date}/edit', [AttendanceController::class, 'editSchedule']);
+        Route::post('attendance/schedule', [AttendanceController::class, 'storeSchedule']);
+        Route::put('attendance/schedule/{date}', [AttendanceController::class, 'updateSchedule']);
+        Route::delete('attendance/schedule/{date}', [AttendanceController::class, 'deleteSchedule']);
+        // Users Attendance
+        Route::get('attendance/users', [AttendanceController::class, 'attendanceUser']);
+    });
 
-    // Management User
-    Route::resource('users', ManagementUserController::class);
 
-    // Career Advancement 
-    Route::get('career', [CareerPromotionController::class, 'index'])->middleware('admin');
-    Route::post('career', [CareerPromotionController::class, 'store'])->middleware('admin');
-
-    // attendance schedule
-    Route::get('attendance/schedule', [AttendanceController::class, 'indexSchedule'])->middleware('admin');
-    Route::get('attendance/schedule/create', [AttendanceController::class, 'createSchedule'])->middleware('admin');
-    Route::get('attendance/schedule/{date}/edit', [AttendanceController::class, 'editSchedule'])->middleware('admin');
-    Route::post('attendance/schedule', [AttendanceController::class, 'storeSchedule'])->middleware('admin');
-    Route::put('attendance/schedule/{date}', [AttendanceController::class, 'updateSchedule'])->middleware('admin');
-    Route::delete('attendance/schedule/{date}', [AttendanceController::class, 'deleteSchedule'])->middleware('admin');
-
-    // Users Attendance
-    Route::get('attendance/users', [AttendanceController::class, 'attendanceUser'])->middleware('admin');
 
     // check in & check out
     Route::get('attendance/user/check/list', [AttendanceController::class, 'attendanceUserCheckList']);
