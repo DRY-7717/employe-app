@@ -65,14 +65,14 @@
                                         @endif
 
                                     </td>
-                                    <td>{{ $as->check_in }}</td>
+                                    <td>{{ $as->check_in ?? '-' }}</td>
                                     <td>{{ $as->check_out ?? '-' }}</td>
                                     <td>{{ $as->keterangan }}</td>
                                     <td>
                                         @php
-                                            $hometime = Carbon\Carbon::now()->hour >= 7;
+                                            $hometime = Carbon\Carbon::now()->hour == 17;
                                         @endphp
-                                        
+
                                         @if ($as->date == $today)
                                             @if ($hometime)
                                                 <form action="/dashboard/attendance/user/checkout" method="POST"

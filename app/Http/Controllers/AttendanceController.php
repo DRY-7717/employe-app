@@ -116,7 +116,7 @@ class AttendanceController extends Controller
             ->where('date', Carbon::today()->toDateString())
             ->first();
 
-        $endTime = Carbon::today()->setTime(9, 15);
+        $endTime = Carbon::today()->setTime(11, 15);
 
         if ($attendance && is_null($attendance->check_in)) {
             $attendance->check_in = Carbon::now()->toTimeString();
@@ -145,7 +145,11 @@ class AttendanceController extends Controller
             ->first();
 
 
+
         if ($attendance && is_null($attendance->check_out)) {
+            if (is_null($attendance->check_in)) {
+                $attendance->status = "Alpha";
+            }
             $attendance->check_out = Carbon::now()->toTimeString();
             $attendance->save();
         }
