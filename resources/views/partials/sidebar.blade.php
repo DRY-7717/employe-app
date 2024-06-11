@@ -42,7 +42,6 @@
         <div class="sidebar-menu">
             <ul class="menu">
                 <li class="sidebar-title">Menu</li>
-
                 <li class="sidebar-item {{ Request::is('dashboard') ? 'active' : false }} ">
                     <a href="/dashboard" class='sidebar-link'>
                         <i class="bi bi-grid-fill"></i>
@@ -72,59 +71,68 @@
                     </ul>
 
                 </li>
-                <li class="sidebar-item {{ Request::is('dashboard/users*') ? 'active' : false }} ">
-                    <a href="/dashboard/users" class='sidebar-link'>
-                        <i class="bi bi-people-fill"></i>
-                        <span>Users</span>
-                    </a>
-                </li>
-                <li
-                    class="sidebar-item  has-sub {{ Request::is('dashboard/position*') ? 'active' : false }} {{ Request::is('dashboard/career*') ? 'active' : false }}">
-                    <a href="#" class='sidebar-link'>
-                        <i class="bi bi-person-up"></i>
-                        <span>Job Position</span>
-                    </a>
 
-                    <ul class="submenu ">
-                        <li class="submenu-item  ">
-                            <a href="/dashboard/position"
-                                class="submenu-link {{ Request::is('dashboard/position*') ? 'text-primary' : false }}">Position</a>
+                @canany(['admin', 'hrd'])
+                    <li class="sidebar-item {{ Request::is('dashboard/users*') ? 'active' : false }} ">
+                        <a href="/dashboard/users" class='sidebar-link'>
+                            <i class="bi bi-people-fill"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                @endcanany
+                @can('admin')
+                    <li
+                        class="sidebar-item  has-sub {{ Request::is('dashboard/position*') ? 'active' : false }} {{ Request::is('dashboard/career*') ? 'active' : false }}">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-person-up"></i>
+                            <span>Job Position</span>
+                        </a>
 
-                        </li>
-                        <li class="submenu-item  ">
-                            <a href="/dashboard/career"
-                                class="submenu-link {{ Request::is('dashboard/career*') ? 'text-primary' : false }}">Promotion
-                                Career</a>
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="/dashboard/position"
+                                    class="submenu-link {{ Request::is('dashboard/position*') ? 'text-primary' : false }}">Position</a>
 
-                        </li>
-                    </ul>
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="/dashboard/career"
+                                    class="submenu-link {{ Request::is('dashboard/career*') ? 'text-primary' : false }}">Promotion
+                                    Career</a>
 
-                </li>
+                            </li>
+                        </ul>
 
-                <li
-                    class="sidebar-item  has-sub {{ Request::is('dashboard/attendance*') ? 'active' : false }}">
+                    </li>
+                @endcan
+
+                <li class="sidebar-item  has-sub {{ Request::is('dashboard/attendance*') ? 'active' : false }}">
                     <a href="#" class='sidebar-link'>
                         <i class="bi bi-person-up"></i>
                         <span>Attendance</span>
                     </a>
 
                     <ul class="submenu ">
-                        <li class="submenu-item  ">
-                            <a href="/dashboard/attendance/schedule"
-                                class="submenu-link {{ Request::is('dashboard/attendance/schedule*') ? 'text-primary' : false }}">Attendace Schedule</a>
+                        @can('admin')
+                            <li class="submenu-item  ">
+                                <a href="/dashboard/attendance/schedule"
+                                    class="submenu-link {{ Request::is('dashboard/attendance/schedule*') ? 'text-primary' : false }}">Attendace
+                                    Schedule</a>
 
-                        </li>
-                        <li class="submenu-item  ">
-                            <a href="/dashboard/attendance/users"
-                                class="submenu-link {{ Request::is('dashboard/attendance/users') ? 'text-primary' : false }}">Attendance Users</a>
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="/dashboard/attendance/users"
+                                    class="submenu-link {{ Request::is('dashboard/attendance/users') ? 'text-primary' : false }}">Attendance
+                                    Users</a>
 
-                        </li>
+                            </li>
+                        @endcan
+
                         <li class="submenu-item  ">
                             <a href="/dashboard/attendance/user/check/list"
                                 class="submenu-link {{ Request::is('dashboard/attendance/user/check/list') ? 'text-primary' : false }}">Attendance</a>
 
                         </li>
-                       
+
                     </ul>
 
                 </li>

@@ -32,7 +32,9 @@
                     <h5 class="card-title">
                         List user
                     </h5>
-                    <a href="/dashboard/users/create" class="btn btn-primary">+ Tambah user</a>
+                    @can('admin')
+                        <a href="/dashboard/users/create" class="btn btn-primary">+ Tambah user</a>
+                    @endcan
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
@@ -54,12 +56,16 @@
                                     <td>{{ $user->positions->first()->name ?? '-' }}</td>
                                     <td>
                                         <a href="/dashboard/users/{{ $user->id }}" class="badge bg-info">Detail</a>
-                                        <a href="/dashboard/users/{{ $user->id }}/edit" class="badge bg-primary">Edit</a>
-                                        <form action="/dashboard/users/{{ $user->id }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('delete')
-                                            <button type="submit" onclick="return confirm('apakah anda yakin?')" class="badge bg-danger border-0">Delete</button>
-                                        </form>
+                                        @can('admin')
+                                            <a href="/dashboard/users/{{ $user->id }}/edit"
+                                                class="badge bg-primary">Edit</a>
+                                            <form action="/dashboard/users/{{ $user->id }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('delete')
+                                                <button type="submit" onclick="return confirm('apakah anda yakin?')"
+                                                    class="badge bg-danger border-0">Delete</button>
+                                            </form>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

@@ -42,12 +42,12 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::put('profile/{id}', [ProfileController::class, 'update']);
     Route::get('profile/changepassword', [ProfileController::class, 'updatepassword']);
     Route::put('profile/changepassword/{id}', [ProfileController::class, 'changepassword']);
+    // Management User
+    Route::resource('users', ManagementUserController::class);
 
     Route::middleware('admin')->group(function () {
         // Position
         Route::resource('position', PositionController::class);
-        // Management User
-        Route::resource('users', ManagementUserController::class);
         // Career Advancement 
         Route::get('career', [CareerPromotionController::class, 'index']);
         Route::post('career', [CareerPromotionController::class, 'store']);
