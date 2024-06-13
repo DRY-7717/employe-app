@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CareerPromotionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
@@ -44,7 +45,12 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::put('profile/changepassword/{id}', [ProfileController::class, 'changepassword']);
     // Management User
     Route::resource('users', ManagementUserController::class);
-
+    // Leave Users
+    Route::get('leave/request', [LeaveController::class, 'index']);
+    Route::get('leave/request/create', [LeaveController::class, 'create']);
+    Route::post('leave/request', [LeaveController::class, 'store']);
+    
+    // Route for admin
     Route::middleware('admin')->group(function () {
         // Position
         Route::resource('position', PositionController::class);

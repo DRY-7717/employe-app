@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AnnualLeave;
 use App\Models\Position;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class ManagementUserController extends Controller
@@ -15,7 +17,7 @@ class ManagementUserController extends Controller
 
     public function __construct()
     {
-        
+
         $this->middleware('admin')->except(['index', 'show']);
         $this->middleware('hrd')->only(['index', 'show']);
     }
@@ -66,9 +68,13 @@ class ManagementUserController extends Controller
             $data['role'] = 3;
         }
 
-        $user = User::create($data);
-        $user->positions()->attach($request->position_id);
-
+        DB::transaction(function () use ($data, $request) {
+            $user = User::create($data);
+            $user->positions()->attach($request->position_id);
+            AnnualLeave::create([
+                'user_id' => $user->id
+            ]);
+        });
         return redirect('/dashboard/users')->with('message', 'User baru berhasil ditambahkan!');
     }
 

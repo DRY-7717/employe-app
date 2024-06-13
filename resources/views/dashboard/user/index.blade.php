@@ -55,11 +55,11 @@
                                     <td>{{ $user->email }}</td>
                                     <td>{{ $user->positions->first()->name ?? '-' }}</td>
                                     <td>
-                                        <a href="/dashboard/users/{{ $user->id }}" class="badge bg-info">Detail</a>
+                                        <a href="/dashboard/users/{{ $user->id }}" class="badge bg-info mb-1">Detail</a>
                                         @can('admin')
                                             <a href="/dashboard/users/{{ $user->id }}/edit"
-                                                class="badge bg-primary">Edit</a>
-                                            <form action="/dashboard/users/{{ $user->id }}" method="POST" class="d-inline">
+                                                class="badge bg-primary mb-1">Edit</a>
+                                            <form action="/dashboard/users/{{ $user->id }}" method="POST" class="d-inline mb-1">
                                                 @csrf
                                                 @method('delete')
                                                 <button type="submit" onclick="return confirm('apakah anda yakin?')"

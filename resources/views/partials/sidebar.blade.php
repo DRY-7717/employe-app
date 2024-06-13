@@ -107,7 +107,7 @@
 
                 <li class="sidebar-item  has-sub {{ Request::is('dashboard/attendance*') ? 'active' : false }}">
                     <a href="#" class='sidebar-link'>
-                        <i class="bi bi-person-up"></i>
+                        <i class="bi bi-person-check"></i>
                         <span>Attendance</span>
                     </a>
 
@@ -135,6 +135,18 @@
 
                     </ul>
 
+                </li>
+                <li class="sidebar-item {{ Request::is('dashboard/leave/request*') ? 'active' : false }} ">
+                    <a href="/dashboard/leave/request" class='sidebar-link'>
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Leave Request</span>
+                    </a>
+                </li>
+                <li class="sidebar-item {{ Request::is('dashboard/leave/confirm*') ? 'active' : false }} ">
+                    <a href="/dashboard/leave" class='sidebar-link'>
+                        <i class="bi bi-calendar2-check-fill"></i>
+                        <span>Confirm Leave Request</span>
+                    </a>
                 </li>
             </ul>
         </div>
