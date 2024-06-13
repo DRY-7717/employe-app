@@ -38,7 +38,6 @@
                     <h5 class="card-title">
                         List permohonan cuti karyawan
                     </h5>
-                    <a href="/dashboard/leave/request/create" class="btn btn-primary">+ Buat Permohonan Cuti</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
@@ -73,7 +72,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="" class="badge bg-info">Check</a>
+                                        <a href="/dashboard/leave/confirm/{{ $leaverequest->id }}"
+                                            class="badge bg-primary">Check</a>
                                     </td>
                                 </tr>
                             @endforeach

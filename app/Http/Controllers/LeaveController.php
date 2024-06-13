@@ -16,7 +16,7 @@ class LeaveController extends Controller
     {
         $leaverequests = Leave::where('user_id', auth()->user()->id)->latest()->get();
         $quota = AnnualLeave::where('user_id', auth()->user()->id)->first();
-        
+
         return view('dashboard.leave.index', [
             'title' => 'Leave Request',
             'leaverequests' => $leaverequests,
@@ -79,6 +79,7 @@ class LeaveController extends Controller
         $quotaLeaveUser = AnnualLeave::where('user_id', auth()->user()->id)->first();
         $leaverequest = Leave::where('id', $id)->where('user_id', auth()->user()->id)->first();
 
+        $dayRequested = (new \DateTime($request->end_date))->diff(new \DateTime($request->start_date))->days + 1;
 
         if ($request->file('proof')) {
             if ($leaverequest->proof) {
@@ -87,9 +88,15 @@ class LeaveController extends Controller
             $data['proof'] = $request->file('proof')->store('leave_proofs');
         }
 
-        if ($request->start_date || $request->end_date) {
-            $dayRequested = (new \DateTime($request->end_date))->diff(new \DateTime($request->start_date))->days + 1;
-            $quotaLeaveUser->annual_leave = 12 - $dayRequested;
+        if ($request->start_date != $leaverequest->start_date || $request->end_date != $leaverequest->end_date) {
+            
+            $oldDuration = (new \DateTime($leaverequest->end_date))->diff(new \DateTime($leaverequest->start_date))->days + 1;
+            $newDuration = (new \DateTime($request->end_date))->diff(new \DateTime($request->start_date))->days + 1;
+
+            // Mengurangi annual_leave dengan perbedaan jumlah hari
+
+            $difference = $newDuration - $oldDuration;
+            $quotaLeaveUser->annual_leave -= $difference;
             $quotaLeaveUser->save();
         }
 
@@ -108,7 +115,7 @@ class LeaveController extends Controller
             Storage::delete($leaverequest->proof);
         }
         $dayRequested = (new \DateTime($leaverequest->end_date))->diff(new \DateTime($leaverequest->start_date))->days + 1;
-        $quotaLeaveUser->annual_leave += $dayRequested;
+        $quotaLeaveUser->annual_leave == 12 ? $quotaLeaveUser->annual_leave += 0 : $quotaLeaveUser->annual_leave += $dayRequested;
         $quotaLeaveUser->save();
 
         $leaverequest->delete();
@@ -122,5 +129,39 @@ class LeaveController extends Controller
             'title' => 'Confirm Leave Request',
             'leaverequests' => $leaverequests
         ]);
+    }
+
+    public function detailconfirm($id)
+    {
+        $leaverequest = Leave::findOrFail($id);
+
+        return view('dashboard.leave.detailconfirm', [
+            'title' => 'Detail Confirm Leave Request',
+            'leaverequest' => $leaverequest
+        ]);
+    }
+    public function confirmrequest(Request $request, $id)
+    {
+        $leaverequest = Leave::findOrFail($id);
+        $userId = $leaverequest->user->id;
+        $quotaLeaveUser = AnnualLeave::where('user_id', $userId)->first();
+        $dayRequested = (new \DateTime($leaverequest->end_date))->diff(new \DateTime($leaverequest->start_date))->days + 1;
+
+
+        if ($request->approve == "Approve") {
+            $leaverequest->status = "Approve";
+            $quotaLeaveUser->annual_leave == 12 ? $quotaLeaveUser->annual_leave -= $dayRequested : $quotaLeaveUser->annual_leave += 0;
+
+            $quotaLeaveUser->save();
+        } else if ($request->failed == "Failed") {
+            $leaverequest->status = "Failed";
+            $quotaLeaveUser->annual_leave != 12 ? $quotaLeaveUser->annual_leave += $dayRequested : $quotaLeaveUser->annual_leave += 0;
+            $quotaLeaveUser->save();
+        } else {
+            return redirect('/dashboard/leave/confirm')->with('failed', 'Permintaan pengajuan cuti karyawan gagal dikonfirmasi!');
+        }
+        $leaverequest->save();
+
+        return redirect('/dashboard/leave/confirm')->with('message', 'Permintaan pengajuan cuti karyawan berhasil dikonfirmasi!');
     }
 }

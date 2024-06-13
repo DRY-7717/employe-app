@@ -45,6 +45,7 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::put('profile/changepassword/{id}', [ProfileController::class, 'changepassword']);
     // Management User
     Route::resource('users', ManagementUserController::class);
+
     // Leave Users
     Route::get('leave/request', [LeaveController::class, 'index']);
     Route::get('leave/request/create', [LeaveController::class, 'create']);
@@ -53,8 +54,13 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::put('leave/request/{id}', [LeaveController::class, 'update']);
     Route::delete('leave/request/{id}', [LeaveController::class, 'destroy']);
 
-    // Confirm leave request user
-    Route::get('leave/confirm', [LeaveController::class, 'confirmpage']);
+    // Route for hrd dan admin
+    Route::middleware('hrd')->group(function () {
+        // Confirm leave request user
+        Route::get('leave/confirm', [LeaveController::class, 'confirmpage']);
+        Route::get('leave/confirm/{id}', [LeaveController::class, 'detailconfirm']);
+        Route::put('leave/confirm/{id}', [LeaveController::class, 'confirmrequest']);
+    });
 
     // Route for admin
     Route::middleware('admin')->group(function () {

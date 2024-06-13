@@ -38,7 +38,8 @@
                     <h5 class="card-title">
                         Quota Cuti: {{ $quota->annual_leave }}
                     </h5>
-                    @if ($leaverequests->first()->status != 'Pending')
+
+                    @if ($leaverequests->isEmpty() || $leaverequests->first()->status != 'Pending')
                         <a href="/dashboard/leave/request/create" class="btn btn-primary">+ Buat Permohonan Cuti</a>
                     @endif
                 </div>
@@ -73,7 +74,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($leaverequest->status == 'Pending' || $leaverequest->status == 'Failed')
+                                        @if ($leaverequest->status == 'Pending')
                                             <form action="/dashboard/leave/request/{{ $leaverequest->id }}" method="POST"
                                                 class="d-inline">
                                                 @csrf
