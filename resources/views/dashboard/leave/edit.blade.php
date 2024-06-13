@@ -6,8 +6,8 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Create Leave Request</h3>
-                    <p class="text-subtitle text-muted">Halaman untuk karyawan mengajukan cuti</p>
+                    <h3>Edit Leave Request</h3>
+                    <p class="text-subtitle text-muted">Halaman untuk karyawan merubah ajuan cuti</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -22,8 +22,9 @@
         </div>
         <section class="section">
             <div class="card">
-                <form action="/dashboard/leave/request" method="POST" class="form" enctype="multipart/form-data">
+                <form action="/dashboard/leave/request/{{ $leaverequest->id }}" method="POST" class="form" enctype="multipart/form-data">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6 col-12">
@@ -32,7 +33,7 @@
                                     <input type="date" id="start_date"
                                         class="form-control @error('start_date') is-invalid @enderror"
                                         placeholder="Input awal tanggal cuti" name="start_date"
-                                        value="{{ old('start_date') }}">
+                                        value="{{ old('start_date', $leaverequest->start_date) }}">
                                     @error('start_date')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -46,7 +47,7 @@
                                     <input type="date" id="end_date"
                                         class="form-control @error('end_date') is-invalid @enderror"
                                         placeholder="Input akhir tanggal cuti" name="end_date"
-                                        value="{{ old('end_date') }}">
+                                        value="{{ old('end_date', $leaverequest->end_date) }}">
                                     @error('end_date')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -57,7 +58,7 @@
                             <div class="col-md-12 col-12">
                                 <div class="form-group">
                                     <label for="reason">Alasan</label>
-                                    <textarea class="form-control @error('reason') is-invalid @enderror" id="reason" rows="3" name="reason">{{ old('reason') }}</textarea>
+                                    <textarea class="form-control @error('reason') is-invalid @enderror" id="reason" rows="3" name="reason">{{ old('reason', $leaverequest->reason) }}</textarea>
                                     @error('reason')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -69,8 +70,14 @@
                                 <div class="form-group">
                                     <label for="reason">Bukti</label>
 
-                                    <img class=" img-preview d-none  img-fluid rounded mb-2 "
-                                        style="width: 800px; height: 500px;" alt="">
+                                    @if ($leaverequest->proof)
+                                        <img src="{{ asset('storage/' . $leaverequest->proof) }}"
+                                            class=" img-preview d-block img-fluid rounded mb-2 "
+                                            style="width: 800px; height: 500px;" alt="">
+                                    @else
+                                        <img class=" img-preview d-none  img-fluid rounded mb-2 "
+                                            style="width: 800px; height: 500px;" alt="">
+                                    @endif
 
                                     <input type="file" class="form-control @error('proof') is-invalid @enderror"
                                         id="customFile" name="proof" onchange="previewImage()" placeholder="">

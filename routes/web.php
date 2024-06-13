@@ -49,7 +49,13 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::get('leave/request', [LeaveController::class, 'index']);
     Route::get('leave/request/create', [LeaveController::class, 'create']);
     Route::post('leave/request', [LeaveController::class, 'store']);
-    
+    Route::get('leave/request/{id}/edit', [LeaveController::class, 'edit']);
+    Route::put('leave/request/{id}', [LeaveController::class, 'update']);
+    Route::delete('leave/request/{id}', [LeaveController::class, 'destroy']);
+
+    // Confirm leave request user
+    Route::get('leave/confirm', [LeaveController::class, 'confirmpage']);
+
     // Route for admin
     Route::middleware('admin')->group(function () {
         // Position

@@ -73,6 +73,8 @@ class PositionController extends Controller
         $data = $request->validate(['name' => 'required|unique:positions']);
         Position::where('id', $position->id)->update($data);
         return redirect('/dashboard/position')->with('message', 'Posisi baru berhasil diubah!');
+
+        
     }
 
     /**

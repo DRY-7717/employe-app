@@ -143,7 +143,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item {{ Request::is('dashboard/leave/confirm*') ? 'active' : false }} ">
-                    <a href="/dashboard/leave" class='sidebar-link'>
+                    <a href="/dashboard/leave/confirm" class='sidebar-link'>
                         <i class="bi bi-calendar2-check-fill"></i>
                         <span>Confirm Leave Request</span>
                     </a>

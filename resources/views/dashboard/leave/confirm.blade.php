@@ -6,14 +6,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Leave Request Lists</h3>
-                    <p class="text-subtitle text-muted">Halaman list-list permohonan cuti</p>
+                    <h3>Confirm Leave Request</h3>
+                    <p class="text-subtitle text-muted">Halaman untuk mengkonfirmasi permohonan cuti</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Leave Request
+                            <li class="breadcrumb-item active" aria-current="page">Confirm Leave Request
                             </li>
                         </ol>
                     </nav>
@@ -36,17 +36,16 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="card-title">
-                        Quota Cuti: {{ $quota->annual_leave }}
+                        List permohonan cuti karyawan
                     </h5>
-                    @if ($leaverequests->first()->status != 'Pending')
-                        <a href="/dashboard/leave/request/create" class="btn btn-primary">+ Buat Permohonan Cuti</a>
-                    @endif
+                    <a href="/dashboard/leave/request/create" class="btn btn-primary">+ Buat Permohonan Cuti</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
                         <thead>
                             <tr>
                                 <th>No</th>
+                                <th>Karyawan</th>
                                 <th>Awal Tanggal Cuti</th>
                                 <th>Akhir Tanggal Cuti</th>
                                 <th>Alasan</th>
@@ -58,6 +57,7 @@
                             @foreach ($leaverequests as $leaverequest)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $leaverequest->user->name }}</td>
                                     <td>{{ $leaverequest->start_date }}</td>
                                     <td>{{ $leaverequest->end_date }}</td>
                                     <td>{{ $leaverequest->reason }}</td>
@@ -73,19 +73,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($leaverequest->status == 'Pending' || $leaverequest->status == 'Failed')
-                                            <form action="/dashboard/leave/request/{{ $leaverequest->id }}" method="POST"
-                                                class="d-inline">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit" onclick="return confirm('apakah anda yakin?')"
-                                                    class="badge bg-danger border-0">Delete</button>
-                                            </form>
-                                            <a href="/dashboard/leave/request/{{ $leaverequest->id }}/edit"
-                                                class="badge bg-primary">Edit</a>
-                                        @else
-                                            <span class="badge bg-info">no control</span>
-                                        @endif
+                                        <a href="" class="badge bg-info">Check</a>
                                     </td>
                                 </tr>
                             @endforeach
