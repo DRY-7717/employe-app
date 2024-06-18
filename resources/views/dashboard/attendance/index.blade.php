@@ -41,6 +41,7 @@
                                 <th>No</th>
                                 <th>Date</th>
                                 <th>Keterangan</th>
+                                <th>Status</th>
                                 <th>Control</th>
                             </tr>
                         </thead>
@@ -50,6 +51,7 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $attendance->date }}</td>
                                     <td>{{ $attendance->keterangan }}</td>
+                                    <td>{{ $attendance->status }}</td>
                                     <td>
                                        <form action="/dashboard/attendance/schedule/{{ $attendance->date }}" method="POST" class="d-inline">
                                         @csrf

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Leave;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -11,7 +12,6 @@ class AttendanceController extends Controller
 {
     public function indexSchedule()
     {
-
 
         $attendances = Attendance::select('date', 'keterangan')->groupBy('date', 'keterangan')->latest()->get();
 
@@ -36,13 +36,22 @@ class AttendanceController extends Controller
             'date' => 'required|unique:attendances',
             'keterangan' => 'required'
         ]);
+        $date = $data['date'];
 
 
         foreach ($users as $user) {
+            $isOnLeave = Leave::where('user_id', $user->id)
+                ->where('start_date', '=', $date)
+                ->where('end_date', '>=', $date)
+                ->exists();
+
+            $status = $isOnLeave ? 'Cuti' : '-';
+
             Attendance::create([
                 'user_id' => $user->id,
-                'date' => $data['date'],
-                'keterangan' => $data['keterangan']
+                'date' => $date,
+                'keterangan' => $data['keterangan'],
+                'status' => $status
             ]);
         }
 
@@ -118,7 +127,7 @@ class AttendanceController extends Controller
 
         $endTime = Carbon::today()->setTime(11, 15);
 
-        if ($attendance && is_null($attendance->check_in)) {
+        if ($attendance && is_null($attendance->check_in) && $attendance->status != "Cuti") {
             $attendance->check_in = Carbon::now()->toTimeString();
 
             if (Carbon::now() < $endTime) {

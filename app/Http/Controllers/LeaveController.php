@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnnualLeave;
+use App\Models\Attendance;
 use App\Models\Leave;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -89,7 +90,7 @@ class LeaveController extends Controller
         }
 
         if ($request->start_date != $leaverequest->start_date || $request->end_date != $leaverequest->end_date) {
-            
+
             $oldDuration = (new \DateTime($leaverequest->end_date))->diff(new \DateTime($leaverequest->start_date))->days + 1;
             $newDuration = (new \DateTime($request->end_date))->diff(new \DateTime($request->start_date))->days + 1;
 
@@ -147,15 +148,21 @@ class LeaveController extends Controller
         $quotaLeaveUser = AnnualLeave::where('user_id', $userId)->first();
         $dayRequested = (new \DateTime($leaverequest->end_date))->diff(new \DateTime($leaverequest->start_date))->days + 1;
 
+        $attendanceUser = Attendance::where('user_id', $userId)->first();
+
+
 
         if ($request->approve == "Approve") {
             $leaverequest->status = "Approve";
             $quotaLeaveUser->annual_leave == 12 ? $quotaLeaveUser->annual_leave -= $dayRequested : $quotaLeaveUser->annual_leave += 0;
-
             $quotaLeaveUser->save();
         } else if ($request->failed == "Failed") {
             $leaverequest->status = "Failed";
             $quotaLeaveUser->annual_leave != 12 ? $quotaLeaveUser->annual_leave += $dayRequested : $quotaLeaveUser->annual_leave += 0;
+            if ($attendanceUser) {
+                $attendanceUser->status = '-';
+                $attendanceUser->save();
+            }
             $quotaLeaveUser->save();
         } else {
             return redirect('/dashboard/leave/confirm')->with('failed', 'Permintaan pengajuan cuti karyawan gagal dikonfirmasi!');

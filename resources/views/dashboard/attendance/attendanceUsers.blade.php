@@ -42,7 +42,6 @@
                                 <th>Date</th>
                                 <th>Keterangan</th>
                                 <th>Status</th>
-                                {{-- <th>Control</th> --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -61,6 +60,9 @@
                                         @endif
                                         @if ($attendance->status == 'Alpha')
                                             <span class="badge bg-danger rounded-pill">{{ $attendance->status }}</span>
+                                        @endif
+                                        @if ($attendance->status == 'Cuti')
+                                            <span class="badge bg-secondary rounded-pill">{{ $attendance->status }}</span>
                                         @endif
                                     </td>
                                 </tr>

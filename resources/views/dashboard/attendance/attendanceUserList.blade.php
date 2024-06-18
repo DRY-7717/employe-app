@@ -63,6 +63,9 @@
                                         @if ($as->status == 'Alpha')
                                             <span class="badge bg-danger rounded-pill">{{ $as->status }}</span>
                                         @endif
+                                        @if ($as->status == 'Cuti')
+                                            <span class="badge bg-secondary rounded-pill">{{ $as->status }}</span>
+                                        @endif
 
                                     </td>
                                     <td>{{ $as->check_in ?? '-' }}</td>
@@ -73,26 +76,29 @@
                                             $hometime = Carbon\Carbon::now()->hour == 17;
                                         @endphp
 
-                                        @if ($as->date == $today)
-                                            @if ($hometime)
-                                                <form action="/dashboard/attendance/user/checkout" method="POST"
-                                                    class="d-inline">
-                                                    @csrf
-                                                    <button type="submit" class="border-0 btn btn-primary">Absen
-                                                        Keluar</button>
-                                                </form>
+                                        @if ($as->status != 'Cuti')
+                                            @if ($as->date == $today)
+                                                @if ($hometime)
+                                                    <form action="/dashboard/attendance/user/checkout" method="POST"
+                                                        class="d-inline">
+                                                        @csrf
+                                                        <button type="submit" class="border-0 btn btn-primary">Absen
+                                                            Keluar</button>
+                                                    </form>
+                                                @else
+                                                    <form action="/dashboard/attendance/user/checkin" method="POST"
+                                                        class="d-inline">
+                                                        @csrf
+                                                        <button type="submit" class="border-0 btn btn-primary">Absen
+                                                            Masuk</button>
+                                                    </form>
+                                                @endif
                                             @else
-                                                <form action="/dashboard/attendance/user/checkin" method="POST"
-                                                    class="d-inline">
-                                                    @csrf
-                                                    <button type="submit" class="border-0 btn btn-primary">Absen
-                                                        Masuk</button>
-                                                </form>
+                                                <button type="button" class="border-0 btn btn-info">Sudah Absen</button>
                                             @endif
                                         @else
-                                            <button type="button" class="border-0 btn btn-info">Sudah Absen</button>
+                                            -
                                         @endif
-
                                     </td>
                                 </tr>
                             @endforeach
