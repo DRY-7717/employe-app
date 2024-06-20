@@ -11,14 +11,15 @@ class UserSalary extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $with = ['user'];
+    protected $with = ['user', 'salary'];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-    public function position(): BelongsTo
+    public function salary(): BelongsTo
     {
-        return $this->belongsTo(Position::class, 'position_id', 'id');
+        return $this->belongsTo(Salary::class, 'salary_id', 'id');
     }
+  
 }
