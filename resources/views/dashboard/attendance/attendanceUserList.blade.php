@@ -73,7 +73,7 @@
                                     <td>{{ $as->keterangan }}</td>
                                     <td>
                                         @php
-                                            $hometime = Carbon\Carbon::now()->hour == 17;
+                                            $hometime = Carbon\Carbon::now()->hour == 21;
                                         @endphp
 
                                         @if ($as->status != 'Cuti')

@@ -53,6 +53,10 @@ class User extends Authenticatable
     {
         return $this->hasOne(Leave::class);
     }
+    public function userSalary(): HasOne
+    {
+        return $this->hasOne(UserSalary::class, 'user_id', 'id');
+    }
     public function Attendance(): HasMany
     {
         return $this->hasMany(Attendance::class);

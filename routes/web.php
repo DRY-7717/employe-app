@@ -9,6 +9,8 @@ use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\UserSalaryController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +55,26 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
     Route::get('leave/request/{id}/edit', [LeaveController::class, 'edit']);
     Route::put('leave/request/{id}', [LeaveController::class, 'update']);
     Route::delete('leave/request/{id}', [LeaveController::class, 'destroy']);
+
+    // Employe Salary
+    Route::get('payroll/salary', [SalaryController::class, 'index']);
+    Route::get('payroll/salary/create', [SalaryController::class, 'create']);
+    Route::post('payroll/salary', [SalaryController::class, 'store']);
+    Route::get('payroll/salary/{id}/edit', [SalaryController::class, 'edit']);
+    Route::put('payroll/salary/{id}', [SalaryController::class, 'update']);
+    Route::delete('payroll/salary/{id}', [SalaryController::class, 'destroy']);
+
+
+
+    // Compensation
+    Route::get('payroll/compensation', [UserSalaryController::class, 'index']);
+    Route::get('payroll/compensation/create', [UserSalaryController::class, 'create']);
+    Route::post('payroll/compensation', [UserSalaryController::class, 'store']);
+    Route::get('payroll/compensation/{userSalary}/edit', [UserSalaryController::class, 'edit']);
+    Route::put('payroll/compensation/{userSalary}', [UserSalaryController::class, 'update']);
+    Route::delete('payroll/compensation/{userSalary}', [UserSalaryController::class, 'destroy']);
+  
+
 
     // Route for hrd dan admin
     Route::middleware('hrd')->group(function () {

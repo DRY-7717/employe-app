@@ -6,14 +6,14 @@
         <div class="page-title">
             <div class="row">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                    <h3>Promotion Career</h3>
-                    <p class="text-subtitle text-muted">Halaman untuk promosi karyawan atau kenaikan jabatan karyawan</p>
+                    <h3>Edit Compensation Employee</h3>
+                    <p class="text-subtitle text-muted">Halaman untuk mengubah gaji karyawan</p>
                 </div>
                 <div class="col-12 col-md-6 order-md-2 order-first">
                     <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Promotion Career
+                            <li class="breadcrumb-item active" aria-current="page">Compensation
                             </li>
                         </ol>
                     </nav>
@@ -28,8 +28,9 @@
                 </div>
             @endif
             <div class="card">
-                <form action="/dashboard/career" method="POST" class="form">
+                <form action="/dashboard/payroll/compensation/{{ $userSalary->id }}" method="POST" class="form">
                     @csrf
+                    @method('put')
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12 col-12">
@@ -41,7 +42,11 @@
                                         name="user_id">
                                         <option selected disabled>Pilih karyawan</option>
                                         @foreach ($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @if ($userSalary->user_id == $user->id)
+                                                <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                                            @else
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endif
                                         @endforeach
                                     </select>
 
@@ -54,18 +59,13 @@
                             </div>
                             <div class="col-md-12 col-12">
                                 <div class="form-group">
-                                    <label for="position_id">Posisi</label>
-                                    <select
-                                        class="form-select @error('position_id')
-                                        is-invalid @enderror"
-                                        name="position_id">
-                                        <option selected disabled>Pilih posisi</option>
-                                        @foreach ($positions as $position)
-                                            <option value="{{ $position->id }}">{{ $position->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <label for="date">Tanggal</label>
+                                    <input type="date" id="date"
+                                        class="form-control @error('date') is-invalid @enderror"
+                                        placeholder="Input gaji pokok" name="date"
+                                        value="{{ old('date', $userSalary->date) }}">
 
-                                    @error('position_id')
+                                    @error('date')
                                         <div class="invalid-feedback">
                                             {{ $message }}
                                         </div>

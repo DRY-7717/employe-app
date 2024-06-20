@@ -150,6 +150,24 @@
                         </a>
                     </li>
                 @endcanany
+                <li class="sidebar-item  has-sub {{ Request::is('dashboard/payroll*') ? 'active' : false }}">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-cash-stack"></i>
+                        <span>Payroll</span>
+                    </a>
+
+                    <ul class="submenu ">
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/payroll/salary"
+                                class="submenu-link {{ Request::is('dashboard/payroll/salary*') ? 'text-primary' : false }}">Salaries</a>
+                        </li>
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/payroll/compensation"
+                                class="submenu-link {{ Request::is('dashboard/payroll/compensation*') ? 'text-primary' : false }}">Compensation</a>
+                        </li>
+                    </ul>
+
+                </li>
             </ul>
         </div>
     </div>
