@@ -157,17 +157,18 @@
                     </a>
 
                     <ul class="submenu ">
-
-                        @canany(['admin', 'hrd'])
-                            <li class="submenu-item  ">
-                                <a href="/dashboard/payroll/salary"
-                                    class="submenu-link {{ Request::is('dashboard/payroll/salary*') ? 'text-primary' : false }}">Salaries</a>
-                            </li>
+                        @canany(['hrd', 'admin'])
+                        <li class="submenu-item  ">
+                            <a href="/dashboard/payroll/salary"
+                                class="submenu-link {{ Request::is('dashboard/payroll/salary*') ? 'text-primary' : false }}">Salaries</a>
+                        </li>
+                        @endcanany
+                        @can(['admin'])
                             <li class="submenu-item  ">
                                 <a href="/dashboard/payroll/compensation"
                                     class="submenu-link {{ Request::is('dashboard/payroll/compensation*') ? 'text-primary' : false }}">Compensation</a>
                             </li>
-                        @endcanany
+                        @endcan
                         <li class="submenu-item  ">
                             <a href="/dashboard/payroll/user/compensation"
                                 class="submenu-link {{ Request::is('dashboard/payroll/user/compensation*') ? 'text-primary' : false }}">User

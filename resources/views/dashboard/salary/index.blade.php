@@ -32,7 +32,9 @@
                     <h5 class="card-title">
                         List Gaji Posisi
                     </h5>
-                    <a href="/dashboard/payroll/salary/create" class="btn btn-primary">+ Tambah Gaji</a>
+                  @can('admin')
+                  <a href="/dashboard/payroll/salary/create" class="btn btn-primary">+ Tambah Gaji</a>
+                  @endcan
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
@@ -44,7 +46,9 @@
                                 <th>Tj. Kesehatan</th>
                                 <th>Tj. Pendidikan</th>
                                 <th>Tj. Transportasi</th>
+                                @can('admin')
                                 <th>Control</th>
+                                @endcan
                             </tr>
                         </thead>
                         <tbody>
@@ -56,6 +60,7 @@
                                     <td>Rp.{{ number_format($salary->health_allowance, '0', '.', '.') }}</td>
                                     <td>Rp.{{ number_format($salary->education_allowance, '0', '.', '.') }}</td>
                                     <td>Rp.{{ number_format($salary->transportation_allowance, '0', '.', '.') }}</td>
+                                   @can('admin')
                                     <td>
                                         <form action="/dashboard/payroll/salary/{{ $salary->id }}" method="POST"
                                             class="d-inline">
@@ -67,6 +72,7 @@
                                         <a href="/dashboard/payroll/salary/{{ $salary->id }}/edit"
                                             class="badge bg-primary">Edit</a>
                                     </td>
+                                   @endcan
                                 </tr>
                             @endforeach
                         </tbody>

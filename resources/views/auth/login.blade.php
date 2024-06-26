@@ -5,8 +5,8 @@
         style="background: url('../img/4.jpeg'); background-size: cover; background-position: center; height: 100vh;">
         <div class="container">
             <div class="row justify-content-end">
-                <div class="col-md-5 col-12 " style="margin-top: 85px; margin-right: -50px" >
-                    <div class="card  shadow-sm">
+                <div class="col-md-5 col-12 border-0" style="margin-top: 120px; margin-right: -50px" >
+                    <div class="card  shadow-sm" style="background-color: rgba(255, 255, 255, .7)">
                         <div class="card-body">
                             <div class="box-logo mb-4" style="width: 230px;">
                                 <img src="/img/logo.png" style="object-fit: cover; width: 100%;" alt="">

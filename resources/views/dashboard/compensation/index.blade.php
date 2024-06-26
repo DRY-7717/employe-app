@@ -62,6 +62,7 @@
                                         </form>
                                         <a href="/dashboard/payroll/compensation/{{ $userSalary->id }}/edit"
                                             class="badge bg-primary">Edit</a>
+                                        <a href="/dashboard/print/{{ $userSalary->user->id }}" target="blank" class="badge bg-info">Print</a>
                                     </td>
                                 </tr>
                             @endforeach

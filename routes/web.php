@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LeaveController;
 use App\Http\Controllers\ManagementUserController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\PrintController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SalaryController;
 use App\Http\Controllers\UserCompensationController;
@@ -72,20 +73,8 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
         Route::get('leave/confirm', [LeaveController::class, 'confirmpage']);
         Route::get('leave/confirm/{id}', [LeaveController::class, 'detailconfirm']);
         Route::put('leave/confirm/{id}', [LeaveController::class, 'confirmrequest']);
-        // Employe Salary
         Route::get('payroll/salary', [SalaryController::class, 'index']);
-        Route::get('payroll/salary/create', [SalaryController::class, 'create']);
-        Route::post('payroll/salary', [SalaryController::class, 'store']);
-        Route::get('payroll/salary/{id}/edit', [SalaryController::class, 'edit']);
-        Route::put('payroll/salary/{id}', [SalaryController::class, 'update']);
-        Route::delete('payroll/salary/{id}', [SalaryController::class, 'destroy']);
-        // Compensation
-        Route::get('payroll/compensation', [UserSalaryController::class, 'index']);
-        Route::get('payroll/compensation/create', [UserSalaryController::class, 'create']);
-        Route::post('payroll/compensation', [UserSalaryController::class, 'store']);
-        Route::get('payroll/compensation/{userSalary}/edit', [UserSalaryController::class, 'edit']);
-        Route::put('payroll/compensation/{userSalary}', [UserSalaryController::class, 'update']);
-        Route::delete('payroll/compensation/{userSalary}', [UserSalaryController::class, 'destroy']);
+
     });
 
     // Route for admin
@@ -104,6 +93,22 @@ Route::prefix('/dashboard')->middleware('auth')->group(function () {
         Route::delete('attendance/schedule/{date}', [AttendanceController::class, 'deleteSchedule']);
         // Users Attendance
         Route::get('attendance/users', [AttendanceController::class, 'attendanceUser']);
+        // Employe Salary
+       
+        Route::get('payroll/salary/create', [SalaryController::class, 'create']);
+        Route::post('payroll/salary', [SalaryController::class, 'store']);
+        Route::get('payroll/salary/{id}/edit', [SalaryController::class, 'edit']);
+        Route::put('payroll/salary/{id}', [SalaryController::class, 'update']);
+        Route::delete('payroll/salary/{id}', [SalaryController::class, 'destroy']);
+          // Compensation
+        Route::get('payroll/compensation', [UserSalaryController::class, 'index']);
+        Route::get('payroll/compensation/create', [UserSalaryController::class, 'create']);
+        Route::post('payroll/compensation', [UserSalaryController::class, 'store']);
+        Route::get('payroll/compensation/{userSalary}/edit', [UserSalaryController::class, 'edit']);
+        Route::put('payroll/compensation/{userSalary}', [UserSalaryController::class, 'update']);
+        Route::delete('payroll/compensation/{userSalary}', [UserSalaryController::class, 'destroy']);
+        // Print PDF
+        Route::get('/print/{id}',[PrintController::class, 'print']); 
     });
 
 
